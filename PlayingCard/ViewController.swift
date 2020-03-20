@@ -10,6 +10,12 @@ import UIKit
 
 class ViewController: UIViewController {
     
+    @IBOutlet weak var playingCardView: PlayingCardView! {
+        didSet {
+            let swipe = UISwipeGestureRecognizer(target: self, action: <#T##Selector?#>)
+        }
+    }
+    
     var deck = PlayingCardDeck()
 
     override func viewDidLoad() {
