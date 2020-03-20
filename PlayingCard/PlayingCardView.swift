@@ -18,6 +18,8 @@ class PlayingCardView: UIView {
     //@IBInspectable
     var isFaceUp: Bool = true {didSet{setNeedsDisplay(); setNeedsLayout()}}
     
+    var faseCardScale: CGFloat = SizeRatio.faceCardImageSizeToBoundsSize { didSet {setNeedsDisplay()} }
+    
     //строка для размещения в Label
     private var cornerString: NSAttributedString {
         return centeredAttributedString(rankString + "\n" + suit, fontSize: cornerFontSize)
@@ -38,7 +40,7 @@ class PlayingCardView: UIView {
         //вставляем картинку или рисуем масть в центре карты
         if isFaceUp {
             if let faceCardImage = UIImage(named: rankString + suit, in: Bundle(for: self.classForCoder), compatibleWith: traitCollection) {
-                faceCardImage.draw(in: bounds.zoom(by: SizeRatio.faceCardImageSizeToBoundsSize))
+                faceCardImage.draw(in: bounds.zoom(by: faseCardScale))
             } else {
                 drawPips()
             }
@@ -144,6 +146,16 @@ class PlayingCardView: UIView {
         label.numberOfLines = 0
         addSubview(label)
         return label
+    }
+    
+    @objc func adjustFaceCardScale(byHandlingGestureBy recognizer: UIPinchGestureRecognizer) {
+        switch recognizer.state {
+        case .changed,.ended:
+            faseCardScale *= recognizer.scale
+            recognizer.scale = 1.0
+        default:
+            break
+        }
     }
 }
 
