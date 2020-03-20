@@ -11,8 +11,11 @@ import UIKit
 
 class PlayingCardView: UIView {
     
-    var rank: Int = 10 {didSet{setNeedsDisplay(); setNeedsLayout()}}
+    @IBInspectable
+    var rank: Int = 13 {didSet{setNeedsDisplay(); setNeedsLayout()}}
+    @IBInspectable
     var suit: String = "♥️" {didSet{setNeedsDisplay(); setNeedsLayout()}}
+    //@IBInspectable
     var isFaceUp: Bool = true {didSet{setNeedsDisplay(); setNeedsLayout()}}
     
     //строка для размещения в Label
@@ -34,11 +37,16 @@ class PlayingCardView: UIView {
         
         //вставляем картинку или рисуем масть в центре карты
         if isFaceUp {
-            if let faceCardImage = UIImage(named: rankString + suit) {
+            if let faceCardImage = UIImage(named: rankString + suit, in: Bundle(for: self.classForCoder), compatibleWith: traitCollection) {
                 faceCardImage.draw(in: bounds.zoom(by: SizeRatio.faceCardImageSizeToBoundsSize))
             } else {
                 drawPips()
             }
+        } else {
+            if let cardaackImage = UIImage(named: "cardback", in: Bundle(for: self.classForCoder), compatibleWith: traitCollection) {
+                cardaackImage.draw(in: bounds)
+            }
+            
         }
     }
     
@@ -160,7 +168,7 @@ extension  PlayingCardView {
         case 1: return "A"
         case 2...10: return String(rank)
         case 11: return "J"
-        case 12: return "D"
+        case 12: return "Q"
         case 13: return "K"
         default: return "?"
         }
