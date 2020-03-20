@@ -62,13 +62,13 @@
 		56E95DE92377339A00891BFA /* PlayingCard */ = {
 			isa = PBXGroup;
 			children = (
-				56E95DFE237733DC00891BFA /* Supporting Files​ */,
 				56E95DEE2377339A00891BFA /* ViewController.swift */,
 				56E95DFF2377344300891BFA /* PlayingCard.swift */,
 				56E95E0123774D6700891BFA /* PlayingCardDeck.swift */,
 				5632BCA123780E4400E28208 /* PlayingCardView.swift */,
 				56E95DF02377339A00891BFA /* Main.storyboard */,
 				56E95DF32377339B00891BFA /* Assets.xcassets */,
+				56E95DFE237733DC00891BFA /* Supporting Files​ */,
 				56E95DF82377339B00891BFA /* Info.plist */,
 			);
 			path = PlayingCard;

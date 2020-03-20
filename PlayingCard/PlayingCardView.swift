@@ -15,15 +15,18 @@ class PlayingCardView: UIView {
     var suit: String = "♥️" {didSet{setNeedsDisplay(); setNeedsLayout()}}
     var isFaceUp: Bool = true {didSet{setNeedsDisplay(); setNeedsLayout()}}
     
+    //строка для размещения в Label
     private var cornerString: NSAttributedString {
         return centeredAttributedString(rankString + "\n" + suit, fontSize: cornerFontSize)
     }
     
+    //создаем 2 Label для размещения в верхнем и нижнем углах карты
     private lazy var upperLeftCornerLabel: UILabel = createCornerLabel()
     private lazy var lowerRightCornerLabel: UILabel = createCornerLabel()
 
-    
+    //вызываем метод​ setNeedsDisplay ()​, если хотим, чтобы система вызвала метод ​draw(_ rect:)
     override func draw(_ rect: CGRect) {
+        //рисуем пустую карту с закругленными углами
         let roundedRect = UIBezierPath(roundedRect: bounds, cornerRadius: cornerRadius)
         roundedRect.addClip()
         UIColor.white.setFill()
@@ -53,22 +56,28 @@ class PlayingCardView: UIView {
                 return probablyOkayPipString
             }
         }
-        
-        
     }
     
+    //Каждый раз, когда ​subviews​ нуждаются в изменении местоположения по каким-либо причинам, системой вызывается метод ​layoutSubviews​.
+    //Вы не вызываете этот метод напрямую. Если вы хотите, чтобы в итоге система вызвала метод ​layoutSubviews​, то вызывайте метод ​setNeedsLayout ()​.
     override func layoutSubviews() {
         super.layoutSubviews()
         
+        //заполняем текстом и размещаем верхний Label
         configureCornerLabel(upperLeftCornerLabel)
         upperLeftCornerLabel.frame.origin = bounds.origin.offsetBy(dx: cornerOffset, dy: cornerOffset)
         
+        //заполняем текстом и размещаем нижний Label
         configureCornerLabel(lowerRightCornerLabel)
+        //переворачиваем Label вверх ногами
         lowerRightCornerLabel.transform = CGAffineTransform.identity
             .translatedBy(x: lowerRightCornerLabel.frame.size.width, y: lowerRightCornerLabel.frame.size.height)
             .rotated(by: CGFloat.pi)
+        //смещаем Label в правый нижний угол карты
         lowerRightCornerLabel.frame.origin = CGPoint(x: bounds.maxX, y: bounds.maxY)
+        //смещаем обратно к обрезанным границам
         .offsetBy(dx: -cornerOffset, dy: -cornerOffset)
+        //смещаем обратно на высоту и ширину метки
         .offsetBy(dx: -lowerRightCornerLabel.frame.size.width, dy: -lowerRightCornerLabel.frame.size.height)
     }
     
@@ -84,13 +93,18 @@ class PlayingCardView: UIView {
         label.isHidden = !isFaceUp
     }
     
-    private func centeredAttributedString (_ string: String, fontSize: CGFloat) -> NSAttributedString {
+    
+    private func centeredAttributedString (_ string: String,
+                                           fontSize: CGFloat) -> NSAttributedString {
         var font = UIFont.preferredFont(forTextStyle: .body).withSize(fontSize)
+        //изменяем размер шрифта при изменении в настройках приложения
         font = UIFontMetrics(forTextStyle: .body).scaledFont(for: font)
+        //выравниваем строку по центру
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.alignment = .center
         return NSAttributedString(string: string,
-                                  attributes: [.paragraphStyle:paragraphStyle,.font:font])
+                                  attributes: [.paragraphStyle: paragraphStyle,
+                                               .font: font])
     }
     
     private func createCornerLabel() -> UILabel {
