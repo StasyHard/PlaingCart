@@ -18,6 +18,7 @@
                             <view opaque="NO" contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="veM-qr-ZMr" customClass="PlayingCardView" customModule="PlayingCard" customModuleProvider="target">
                                 <rect key="frame" x="20" y="154" width="374" height="598"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <gestureRecognizers/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="veM-qr-ZMr" secondAttribute="height" multiplier="5:8" id="3RB-On-gBL"/>
                                     <constraint firstAttribute="width" priority="750" constant="800" id="Xpw-zr-Rwl"/>
@@ -29,9 +30,13 @@
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="string" keyPath="suit" value="♣️"/>
                                 </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="JLJ-1l-TgX" appends="YES" id="4aG-Jr-75w"/>
+                                </connections>
                             </view>
                         </subviews>
                         <color key="backgroundColor" red="0.92950663294816882" green="0.78711582626382137" blue="0.58346093401634092" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="veM-qr-ZMr" secondAttribute="trailing" constant="20" id="LGw-5w-5Rk"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="veM-qr-ZMr" secondAttribute="bottom" constant="20" id="Ub5-kp-HbH"/>
@@ -47,6 +52,11 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="JLJ-1l-TgX">
+                    <connections>
+                        <action selector="flipCard:" destination="BYZ-38-t0r" id="5fs-id-ujW"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="137.68115942028987" y="73.660714285714278"/>
         </scene>

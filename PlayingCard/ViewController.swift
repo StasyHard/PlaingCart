@@ -18,7 +18,16 @@ class ViewController: UIViewController {
         }
     }
     
-     var deck = PlayingCardDeck()
+    @IBAction func flipCard(_ sender: UITapGestureRecognizer) {
+        switch sender.state {
+        case .ended:
+            playingCardView.isFaceUp = !playingCardView.isFaceUp
+        default:
+            break
+        }
+    }
+    
+    var deck = PlayingCardDeck()
     
     @objc func nextCard() {
         if let card = deck.draw() {
@@ -35,7 +44,7 @@ class ViewController: UIViewController {
             }
         }
     }
-
-
+    
+    
 }
 
