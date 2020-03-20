@@ -16,7 +16,7 @@ class ViewController: UIViewController {
             swipe.direction = [.left, .right]
             playingCardView.addGestureRecognizer(swipe)
             
-            let pinch = UIPinchGestureRecognizer(target: playingCardView, action: #selector(PlayingCardView.adjustFaceCardScale(byHandlingGestureBy:)))
+            let pinch = UIPinchGestureRecognizer(target: playingCardView, action: #selector(PlayingCardView.adjustFaceCardScale(byHandlingGestureBy: )))
             playingCardView.addGestureRecognizer(pinch)
             
         }
